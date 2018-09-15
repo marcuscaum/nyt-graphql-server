@@ -1,5 +1,5 @@
 {
-  "name": "y",
+  "name": "nyt-graphql-server",
   "version": "1.0.0",
   "description": "A Graphql server that returns the most popular articles from The New York Times based on a section",
   "main": "src/index.js",
