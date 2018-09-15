@@ -4,8 +4,16 @@
   "description": "A Graphql server that returns the most popular articles from The New York Times based on a section",
   "main": "src/index.js",
   "scripts": {
+    "server": "nodemon src/index.js --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "@marcuscaum",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "koa": "^2.5.3",
+    "koa-graphql": "^0.7.5",
+    "node-fetch": "^2.2.0",
+    "nodemon": "^1.18.4"
+  }
 }
