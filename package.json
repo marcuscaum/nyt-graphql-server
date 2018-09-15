@@ -1,0 +1,11 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "A Graphql server that returns the most popular articles from The New York Times based on a section",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "@marcuscaum",
+  "license": "ISC"
+}
