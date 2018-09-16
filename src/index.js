@@ -1,5 +1,4 @@
 import 'babel-polyfill';
-import mount from 'koa-mount';
 import Koa from 'koa';
 import graphqlHTTP from 'koa-graphql';
 import dotenv from 'dotenv';
@@ -14,12 +13,10 @@ const PORT = process.env.PORT || 5000;
 const app = new Koa();
 
 app.use(
-  mount(
-    graphqlHTTP({
-      schema,
-      graphiql: true,
-    }),
-  ),
+  graphqlHTTP({
+    schema,
+    graphiql: true,
+  }),
 );
 
 app.listen(PORT, () => {

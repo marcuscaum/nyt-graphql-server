@@ -16,3 +16,7 @@ type Article {
   totalShares: Int
   link: String
 }
+
+type Query {
+  allArticles(session: String, timePeriod: Int): [Article]
+}
