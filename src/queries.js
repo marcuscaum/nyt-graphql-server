@@ -18,6 +18,7 @@ export default {
         `https://api.nytimes.com/svc/mostpopular/v2/mostshared/${section}/${timePeriod}.json?api-key=${API_KEY}`,
       );
       const data = await resp.json();
+      console.log(data.results[0]);
       return data.results;
     },
   },
