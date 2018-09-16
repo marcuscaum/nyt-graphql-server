@@ -10,11 +10,7 @@ https://nyt-graphql-server-yybepdacyh.now.sh
   allArticles(params: { section: string, timePeriod: number })
 ```
 
----
-
 #### Time Period : `1 | 7 | 30`
-
----
 
 #### List of sections:
 
