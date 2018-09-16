@@ -1,0 +1,18 @@
+type Image {
+  url: String
+  caption: String
+}
+
+type Article {
+  # The ID of an object
+  id: ID!
+  _id: Int
+  url: String
+  section: String
+  title: String
+  abstract: String
+  publishedDate: String
+  image: Image
+  totalShares: Int
+  link: String
+}

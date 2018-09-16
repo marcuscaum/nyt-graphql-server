@@ -4,60 +4,71 @@ import {
   GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList,
 } from 'graphql';
 
-const { API_KEY } = process.env;
+const ImageType = new GraphQLObjectType({
+  name: 'Image',
+  fields: {
+    id: globalIdField('Image'),
+    url: {
+      type: GraphQLString,
+      resolve: ({ media }) => media[0]['media-metadata'][2].url,
+    },
+    caption: {
+      type: GraphQLString,
+      resolve: ({ media }) => media[0].caption,
+    },
+  },
+});
 
 const ArticleType = new GraphQLObjectType({
   name: 'Article',
-  fields: () => ({
+  fields: {
     id: globalIdField('Article'),
-    _id: {
-      type: GraphQLInt,
-      resolve: { id } => id,
-    },
     url: {
       type: GraphQLString,
-      resolve: { url } => url,
+      resolve: ({ url }) => url,
     },
     section: {
       type: GraphQLString,
-      resolve: { section } => section,
+      resolve: ({ section }) => section,
     },
     title: {
       type: GraphQLString,
-      resolve: { title } => title,
+      resolve: ({ title }) => title,
     },
     abstract: {
       type: GraphQLString,
-      resolve: { abstract } => abstract,
+      resolve: ({ abstract }) => abstract,
     },
     publishedDate: {
       type: GraphQLString,
-      resolve: { published_date } => published_date,
+      resolve: ({ published_date }) => published_date,
     },
-    imageCaption: {
-      type: GraphQLString,
-      resolve: { media } => media[0].caption,
+    image: {
+      type: ImageType,
+      resolve: ({ media }) => ({ media }),
     },
-    imageLarge: {
-      type: GraphQLString,
-      resolve: { media } => media[0]['media-metadata'][2].url,
+    totalShares: {
+      type: GraphQLInt,
+      resolve: ({ total_shares }) => total_shares,
     },
-    totalShares: { type: GraphQLInt },
-  }),
+  },
 });
 
-const QueryType = new GraphQLObjectType({
-  name: 'Query',
-  fields: () => ({
-    allArticles: {
-      type: new GraphQLList(ArticleType),
-      resolve: async (_, { section, timePeriod }) => fetch(
-        `https://api.nytimes.com/svc/mostpopular/v2/mostshared/${section}/${timePeriod}.json?api-key=${API_KEY}`,
-      ),
+export default new GraphQLSchema({
+  query: new GraphQLObjectType({
+    name: 'Query',
+    fields: {
+      allArticles: {
+        type: new GraphQLList(ArticleType),
+        resolve: async () => {
+          const { API_KEY } = process.env;
+          const resp = await fetch(
+            `https://api.nytimes.com/svc/mostpopular/v2/mostshared/Science/30.json?api-key=${API_KEY}`,
+          );
+          const data = await resp.json();
+          return data.results;
+        },
+      },
     },
   }),
-});
-
-export default GraphQLSchema({
-  query: QueryType,
 });
