@@ -11,9 +11,9 @@ export default {
         type: new GraphQLNonNull(ArticleInputType),
       },
     },
-    resolve: async (_, { input }) => {
+    resolve: async (_, { params }) => {
       const { API_KEY } = process.env;
-      const { section, timePeriod } = input;
+      const { section, timePeriod } = params;
       const resp = await fetch(
         `https://api.nytimes.com/svc/mostpopular/v2/mostshared/${section}/${timePeriod}.json?api-key=${API_KEY}`,
       );

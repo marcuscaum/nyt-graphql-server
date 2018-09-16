@@ -4,9 +4,6 @@ type Image {
 }
 
 type Article {
-  # The ID of an object
-  id: ID!
-  _id: Int
   url: String
   section: String
   title: String
@@ -15,6 +12,7 @@ type Article {
   image: Image
   totalShares: Int
   link: String
+  image: [Image]
 }
 
 type Query {
